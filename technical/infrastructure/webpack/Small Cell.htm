@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0063)http://localhost:8099/login.php?_ijt=tpgtf7po8en7gk8i7b9dndhikr -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Small Cell</title>
+
+<link rel="stylesheet" href="./Small Cell_files/login.css">
+<script src="./Small Cell_files/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="./Small Cell_files/lang.js" type="text/javascript"></script>
+<script src="./Small Cell_files/constant.js" type="text/javascript"></script>
+<script src="./Small Cell_files/layer.js" type="text/javascript"></script><link rel="stylesheet" href="./Small Cell_files/layer.css" id="layuicss-layer">
+<script src="./Small Cell_files/md5.js" type="text/javascript"></script>
+<style>
+    .curlang {
+        border: 1px solid #000;
+    }
+</style></head>
+
+<body style="margin: 0px;border: 0px;background-color: #F8F8F8;" onkeydown="keyLogin();">
+<div class="content">
+    <input id="bsinfo" name="info" type="hidden" value="d8f6885c546c1c3d4957992d4b53191fbs">
+    <div class="loginTop">
+        <img style="width: auto;height: 22px;max-height: 100%;margin:5px 10px 0 5px;float: left;" src="./Small Cell_files/logo_03.png">
+        SMALL CELL
+        <a id="ie_warning" style="position: absolute;top:0;padding: 10px 0 0 200px;display:none;font-size: 16px;">
+            <strong><center><span style="color:red">&nbsp;注意：浏览器版本太低，为了达到最佳体验效果，强烈建议您，升级到ie8以上再试！</span></center></strong>
+        </a>
+        <div id="langDiv" style="float: right;font-size: 14px;padding-right: 10px;">
+            <a id="cnLang" style="color:#000;padding: 0px 5px;text-decoration: none;" lang="CN" onclick="setLang(this)" href="javascript:void(0);" class="curlang">中文</a>
+            <a id="enLang" style="color:#000;padding: 0px 5px;text-decoration: none;" lang="EN" onclick="setLang(this)" href="javascript:void(0);">English</a>
+        </div>
+    </div>
+    <!--[if lte IE 7]>
+    <script>
+        document.getElementById("ie_warning").style.display="inline";
+    </script>
+    <![endif]-->
+    <div class="loginCenter imgBack" style="height: 234px;">
+        <div class="loginBox" style="background-image:url(/lte/image/login/loginBackgroundCN.png);">
+            <div class="textBox">
+                <div class="text">用户名</div>
+                <div><input id="account" type="text" placeholder="请输入您的账号"></div>
+                <div class="text">密码</div>
+                <div><input id="password" type="password" placeholder="请输入您的密码"></div>
+                <div class="buttonBox imgBack" onclick="submit()">登录</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        var height = document.documentElement.clientHeight;
+        var centerHeight = height-64;
+        var topHeight = height*0.25;
+        $('.loginCenter').css('height',centerHeight);
+        if(window.sessionStorage){
+            window.sessionStorage.clear();
+        }
+        var lang = 'CN';
+        window.sessionStorage.setItem('lang',lang);
+        if(lang == "CN"){
+            $("#cnLang").addClass("curlang");
+        }else{
+            $("#enLang").addClass("curlang");
+        }
+    });
+
+    function submit(){
+        var username = $('#account').val();
+        var password = $('#password').val();
+        if(username == 'root') {
+            var path = 'ltert/';
+        }
+        else {
+            path = 'lte/';
+        }
+        if(!username){
+            layer.open({title: getLangStr("STR_HINT"),content: '用户名不能为空',icon: 0});
+            return;
+        }
+        if(!password){
+            layer.open({title: getLangStr("STR_HINT"),content: '密码不能为空',icon: 0});
+            return;
+        }
+        var time = Date.parse(new Date());
+        var parameter = {
+            usrname:$('#account').val(),
+            passwd:hex_md5($('#password').val()),
+            date:time,
+            bsinfo:$('#bsinfo').val()
+        };
+        var msg =layer.msg(getLangStr('STR_LOGON'), {
+            icon: 16,
+            shade: 0.4,
+            time:false //取消自动关闭
+        });
+        var url = path + 'action/loginAction.php';
+        $.ajax({
+            method:"post",
+            url:url,
+            data:parameter,
+            success:function (data) {
+                setTimeout(function(){
+                    layer.close(msg);//手动关闭
+                    if (data == "failed") {
+                        layer.open({title: getLangStr("STR_TITLE_WARN"),content: "用户名密码不正确",icon: 2});
+                    } else if (data.indexOf("timeCount")!= -1) {
+                        var str = data.substr("timeCount".length + 1);
+                        layer.open({title: getLangStr("STR_TITLE_WARN"),content: "登录失败，您还可以尝试： "+str+ "次",icon: 2});
+                    } else if (data == "timeout") {
+                        layer.open({title: getLangStr("STR_TITLE_WARN"),content: "登录超时，请稍后重试",icon: 2});
+                    } else if (data.indexOf("user_lock")!= -1) {
+                        var str = data.substr("user_lock".length + 1);
+                        layer.open({title: getLangStr("STR_TITLE_WARN"),content: "连续登录失败，锁定" +str+"分钟中...",icon: 2});
+                    } else if (data == "admin_lock") {
+                        layer.open({title: getLangStr("STR_TITLE_WARN"),content: "此账户已被管理员锁定，无法登录！",icon: 2});
+                    } else if (data.indexOf("pwd_outofdate_event")!= -1) {
+                        var str = data.substr("pwd_outofdate_event".length + 1);
+                        layer.open({title: getLangStr("STR_HINT"),content: "您已超过"+str+"天未修改密码",icon: 0,yes: function(index, layero){
+                            layer.close(index);
+                            location.href = path + "changePassword.php";
+                        }});
+                    } else if (data.indexOf("pwd_outofdate_warning")!= -1) {
+                        var str = data.substr("pwd_outofdate_warning".length + 1);
+                        layer.open({title: getLangStr("STR_HINT"),content: "距密码过期时间还有"+str+"天",icon: 0,yes: function(index, layero){
+                            layer.close(index);
+                            window.location.href = path + "main.php?lang="+lang;
+                        }});
+                    } else  {
+                        window.location.href = path + "main.php?lang="+lang;
+                    }
+                },1000);
+            },
+             error:function(XMLHttpRequest, textStatus, errorThrown){
+                 layer.open({title: getLangStr("STR_HINT"),content: getLangStr('STR_NETWORK_ERROR'),icon: 2});
+             }
+        });
+    }
+    function keyLogin(){
+        var event = window.event || arguments.callee.caller.arguments[0];
+        if (event.keyCode==13){
+            submit();
+        }
+    }
+    //设置语言
+    function setLang(obj){
+        $("#langDiv").find("a").removeClass("curlang");
+        window.sessionStorage.setItem("lang",$(obj).attr("lang"));
+        $(obj).addClass("curlang");
+        window.location = window.location.href.indexOf("?") > -1 ? window.location.href.substring(0,window.location.href.indexOf("?"))+"?lang="+$(obj).attr("lang") :  window.location.href +"?lang="+$(obj).attr("lang");
+    }
+</script>
+</body></html>
