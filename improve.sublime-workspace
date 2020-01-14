@@ -1,0 +1,1106 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "technical/framework/umijs.md",
+			"settings":
+			{
+				"buffer_size": 642,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "technical/infrastructure/create-react-app.md",
+			"settings":
+			{
+				"buffer_size": 54,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/laketea/private/improve-by-learning/technical/scratch/blockly.md",
+			"settings":
+			{
+				"buffer_size": 4974,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "blockly.md"
+			}
+		},
+		{
+			"file": "/Users/laketea/private/improve-by-learning/technical/scratch/自定义block.md",
+			"settings":
+			{
+				"buffer_size": 609,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "自定义block.md"
+			}
+		},
+		{
+			"file": "/Users/laketea/private/improve-by-learning/technical/lint/eslint.md",
+			"settings":
+			{
+				"buffer_size": 1583,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "eslint.md"
+			}
+		},
+		{
+			"contents": "# lint tools\n\n列举下lint相关的一些工具：\n\n- prettier\n- lint-stage\n- commitlint\n- stylelint\n- husky\n\n\n## husky\n\n用于添加本地git hooks\n\n```\nnpm install husky\n\n{\n    husky: {\n      \"hooks\": {\n        \"pre-commit\": \"npm test\",\n        \"commit-msg\": \"do something\",\n      }\n    }\n}\n```\n\n\n## commitlint\n\ncommitlint校验commit message格式\n\n@commitlint/cli 校验工具\n@commitlint/config-conventional angular风格msg校验规则\n\n```\nnpm install --save-dev @commitlint/{config-conventional,cli}\necho \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js\n\n{\n  \"husky\": {\n    \"hooks\": {\n      \"commit-msg\": \"commitlint -E HUSKY_GIT_PARAMS\"\n    } \n  }\n}\n\n```\n\n如果需要更改校验规则，提供shared configuration package, 需要参考：\n\n[config-conventional](https://github.com/conventional-changelog/commitlint/blob/master/@commitlint/config-conventional/index.js) \n\n也可以直接在commitlint.config.js下面配置rules\n\n## lint-stage\n\nRun linters on git staged files\n\n```\nnpm install --save-dev lint-staged // 9.x\n{\n  \"lint-staged\": {\n    \"**/*.{js,jsx,tsx,ts,less,md,json}\": [..]\n  }\n}\n```\n\n\n## prettier\n\nprettier vs linter ?\n\nlinter一般包含两种rules: 格式化rule, 代码质量rule.\n\npretterier 主要解决代码风格问题，自动格式化，更彻底\n\n\n配置，支持多种方式，package.json:prettier or .prettierrc.js\n支持对不同的files，使用不同的配置项\n\n另外prettier也支持shared configuration package, 如果需要统一可以考虑\n\n```\nnpm install husky\necho \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js\nnpm install --save-dev @commitlint/{config-conventional,cli}\nnpm install --save-dev --save-exact prettier\n```\n\n\n## summary\n\n安装\n\n```\nnpm install husky\nnpm install --save-dev lint-staged\nnpm install --save-dev @commitlint/{config-conventional,cli}\nnpm install --save-dev --save-exact prettier\necho \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js\n```\n\n配置如下：\n\n```\n{   \n    \"husky\": {\n        \"hooks\": {\n          \"pre-commit\": \"lint-staged\",\n          \"commit-msg\": \"commitlint -E HUSKY_GIT_PARAMS\"\n        }\n    },\n    \"lint-staged\": {\n        \"*.{js,jsx,md,html}\": [\n          \"prettier --write\",\n          \"eslint --fix\",\n          \"git add\",\n          \"eslint\" \n        ],\n    }\n}\n```\n\n\n\n\n",
+			"file": "technical/lint/lint-tools.md",
+			"file_size": 2361,
+			"file_write_time": 132189630883155947,
+			"settings":
+			{
+				"buffer_size": 2116,
+				"line_ending": "Unix",
+				"name": "lint-staged.md"
+			}
+		},
+		{
+			"file": "technical/book/refactor-v2/重构的原则.md",
+			"settings":
+			{
+				"buffer_size": 8,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "select \n    count(*) as value, \n    case isxiguabrowser\n    when 'true' then '西瓜浏览器'\n    when 'false' then '其他浏览器'\n    else '未知浏览器'\n    end as browser\nfrom xiguaweb.performanceTime \ngroup by isxiguabrowser",
+			"settings":
+			{
+				"buffer_size": 205,
+				"line_ending": "Unix",
+				"name": "select"
+			}
+		},
+		{
+			"contents": "# 基本类型类型\n\njavascript类型分为原始数据类型 以及对象类型\n\n## 原始类型\n\n原始对象类型包括如下几种：\n\n- 布尔值\n- 数值\n- 字符串\n- null/undefined\n- Symbol\n\n\n### boolean\n\n```\nlet isDone: boolean = false;\n```\n\n### number\n\n```\nlet age: number = 6; // 支持多进制\n```\n\n### string\n\n```\nlet fullName: string = 'test';\nlet fullNameL string = `hello, ${name}`;\n```\n\n### null or undefined\n\nts中，undefined 以及null分别是两种原始数据类型，并且默认undefined 和 null 值是所有类型的子类型，如果加上--strictNullChecks参数，则只是自身以及void的子集\n\n\n```\nlet u: undefined = undefined;\nlet n: null = null;\nlet num: number = undefined;\n```\n\n> 因为undefined以及null是所有类型的子类型，并且ts又提供了void类，需要定义undefined以及null类型的场景应该非常少\n\nts中，提供了void类型，其值可以是undefined 或者null, 一般用 void 表示没有任何返回值的函数\n\n```\nlet unusable: void = undefined;\nfunction alertName(): void {\n    alert('My name is Tom');\n}\n\n```\n\n## 对象类型数据\n\n### Array\n\n```\nlet list: number[] = [1,2,3];\nlet list: Array<Number> = [1,2,3]\n```\n\n### Tuple\n\n混合类型数组\n\n```\nlet x: [string, number] = [\"100\", 10];\n```\n\n如果超出x的下标，将会使用结合类型，意思就是必须已定义的一种类型\n\n### Enum \n\n- 枚举元素的值默认从0开始，并且会自动递增\n- 可以手动设置枚举的值，？如果中间的没有设置，值根据前一个值递增，如果前一个值不是number, 则必须要指定当前的值\n- 可以通过枚举的值来获取枚举的名称, 如果枚举的值跟名称冲突，则优先通过枚举的名称来访问枚举值\n\n```\nenum Color {Red = 1, Green, Blue = 4 }\n\nconsole.log(Color.Green); // 2\n\nconsole.log(Color[2]); //GrEEN\n\nenum Color {Red = 'Green', Green = 'Y', Blue = 4 }\nconsole.log(Color.Green); // Y\n\n```\n\n### Any\n\nany类型会跳过判断\n\n```\nlet notSure: any = 4;\nnotSure.ifItExists(); // okay, ifItExists might exist at runtime\nnotSure.toFixed(); // okay, toFixed exists (but the compiler doesn't check)\n\nlet list: any[] = [1, true, \"free\"];\n```\n\n### Void\n\n理解为any的反面，只能两种类型，undefined or null, 类似nill的概念\n\n一般作为函数的返回值\n\n### null, undefined\n\n默认情况下，null & undefined 是所有类型的子集，\n如果加上--strictNullChecks参数，则只是自身以及void的子集\n\n### nerver\n\nnerver 类型代表永远不会产生值，例如函数不return或者throw error的情况下。\nnerver是任何类型的子类型，但是没有任何类型是nerver的子类型(除了nerver自身)\n\n```\nfunction error(message: string): never {\n    throw new Error(message);\n}\n\nfunction infiniteLoop(): never {\n    while (true) {\n    }\n}\n```\n\n### Object\n\n非原子类型\n\n\n",
+			"file": "technical/typescript/基本类型.md",
+			"file_size": 2837,
+			"file_write_time": 132160396442064710,
+			"settings":
+			{
+				"buffer_size": 1961,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 52 files for \"message\"\n\n/Users/laketea/Private/improve-by-learning/technical/infrastructure/git message格式化以及changelog.md:\n    1: # git message格式化以及changelog\n    2  \n    3: 主要参考 [Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)\n    4  \n    5  下面主要罗列一下相关的内容：\n    6  \n    7: ## message格式规范\n    8  \n    9  参考上面提到的文档即可\n   ..\n   13  cz是一个commit相关的命令行工具\n   14  \n   15: cz本身只是一个工具，可以根据需求设置不同的adapters,也就是不同格式的message要求。\n   16  \n   17: 默认是推荐使用 cz-converntional-changelog, 也就是angular风格的commit message规范。\n   18  \n   19  全局安装cz工具\n   ..\n   42  ## commitlint\n   43  \n   44: commitlint是一个 commit message检查工具\n   45  \n   46  ### 本地检查\n\n/Users/laketea/Private/improve-by-learning/technical/infrastructure/脚手架.md:\n   11  \n   12  - 自动初始化git-cz\n   13: - 自动强制commit message检查\n   14  \n   15  ## API列表\n\n/Users/laketea/Private/improve-by-learning/technical/lint/lint-tools.md:\n   30  ## commitlint\n   31  \n   32: commitlint校验commit message格式\n   33  \n   34  @commitlint/cli 校验工具\n\n/Users/laketea/Private/improve-by-learning/technical/scratch/自定义block.md:\n   22  {\n   23      type: '', 类型\n   24:     message0: '', 输入参数\n   25      args0: [], 输入参数定义\n   26      inputsInline: true,\n\n/Users/laketea/Private/improve-by-learning/technical/typescript/基本类型.md:\n  122  \n  123  ```\n  124: function error(message: string): never {\n  125:     throw new Error(message);\n  126  }\n  127  \n\n/Users/laketea/private/improve-by-learning/technical/scratch/自定义block.md:\n   22  {\n   23      type: '', 类型\n   24:     message0: '', 输入参数\n   25      args0: [], 输入参数定义\n   26      inputsInline: true,\n\n13 matches across 6 files\n",
+			"settings":
+			{
+				"buffer_size": 1636,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "technical/infrastructure/git message格式化以及changelog.md",
+			"settings":
+			{
+				"buffer_size": 2466,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# 其他\n\n\n## 特殊类型\n\n**类型别名**\n\n用来给一个类型起个新名字，常用于联合类型\n\n```\ntype NameResolver = () => string;\ntype NameOrResolver = Name | NameResolver;\n```\n\n**字符串字面量类型**\n\n用来约束取值只能是某几个字符串中的一个，应用场景？\n\n```\ntype EventNames = 'click' | 'scroll' | 'mousemove';\nfunction handleEvent(ele: Element, event: EventNames) {\n    // do something\n}\n\n\n```\n\n**元组**\n\n可以认为包含不同类型数据的数组。\n\n```\nlet tom: [string, number] = ['Tom', 25];\n```\n\n当直接对元组类型的变量进行初始化或者赋值的时候，需要提供所有元组类型中指定的项\n\n> 只是覆盖类型，还是必须严格跟定义中的数量一致\n\n```\nlet tom: [string, number];\ntom = ['Tom', 25];\n```\n\n如果添加元素越界时，则限制新元素必须为元组中的某一类型，或者联合类型",
+			"file": "technical/typescript/其他.md",
+			"file_size": 9,
+			"file_write_time": 132160492325423986,
+			"settings":
+			{
+				"buffer_size": 548,
+				"line_ending": "Unix",
+				"name": "其他.md"
+			}
+		},
+		{
+			"contents": "# 枚举\n\n用于取值被限定在一定范围内的场景\n\n```\nenum Days {Sun, Mon, Tue, Wed, Thu, Fri, Sat}; // 0 1 2 3 4 5 6\nenum Days {Sun = 7, Mon = 1, Tue, Wed, Thu, Fri, Sat}; // 7 1 2 3 4 5 6\nenum Days {Sun = 7, Mon = 1, Tue, Wed, Thu, Fri, Sat = <any>\"S\"} // 7 1 2 3 4 5 's'\n\n```\n\n如果未对枚举赋值，则成员会从0开始递增，如果部分赋值，则剩下的会从赋值的开始递增。\n\n## 常数项与计算所得项\n\n如果紧接在计算所得项后面的是未手动赋值的项，那么它就会因为无法获得初始值而报错：\n\n## 常数枚举 与 普通枚举\n\n常数枚举是使用 const enum 定义的枚举类型\n```\nconst enum Directions {\n    Up,\n    Down,\n    Left,\n    Right\n}\n\nlet directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];\n```\n\n常数枚举与普通枚举的区别是，它会在编译阶段被删除，并且不能包含计算成员。\n",
+			"file": "technical/typescript/枚举.md",
+			"file_size": 10,
+			"file_write_time": 132160499604882267,
+			"settings":
+			{
+				"buffer_size": 593,
+				"line_ending": "Unix",
+				"name": "枚举.md"
+			}
+		},
+		{
+			"contents": "# 类\n\n主要将以下ts中的类与es6中的类有何区别，以及如何定义类的类型\n\n## 与es6类的区别\n\n**实例属性&静态属性(es7)**\n\n```\nclass Animal {\n    name: string = 'Jack'; // 实例属性\n    static num: number = 42; // 静态属性\n    constructor() {\n        // ...\n    }\n}\n\n```\n\n\n**修饰符**\n\n\n修饰符作用到类的属性或方法上：\n\n- public 类的属性以及方法任何地方都可被访问到，默认\n- private 私有的，不能再类的外部使用\n- protected 受保护的，只能在类的内部以及子类中访问\n\n\n修饰符作用到构造函数时：\n\n- private, 则改类不能被继承或者实例话，有何应用场景？\n- pritected, 该类只能被继承\n- public\n\n修饰符还可以使用在构造函数参数中，等同于类中定义该属性，\n\n```\nclass Animal {\n    // public name: string;\n    public constructor (public name) {\n        this.name = name; // ?? 这句代码是否需要？\n    }\n}\n```\n\n**readonly**\n\n只读属性关键字，只允许出现在属性声明或索引签名中\n\n\n```\nclass Animal {\n    name: string;\n    constructor(name: string) {\n        this.name = name;\n    }\n    sayHi(): string {\n      return `My name is ${this.name}`;\n    }\n}\n\nlet a: Animal = new Animal('Jack');\nconsole.log(a.sayHi()); // My name is Jack\n```\n\n\n",
+			"file": "technical/typescript/类.md",
+			"file_size": 6,
+			"file_write_time": 132160516016433191,
+			"settings":
+			{
+				"buffer_size": 876,
+				"line_ending": "Unix",
+				"name": "类.md"
+			}
+		},
+		{
+			"contents": "# 数组\n\n数组的类型定义包含多种方式：\n\n- 类型 + 方括号\n- 数组泛型\n- 接口\n\n\n## 类型 + 方括号\n\n```\nlet fibonacci: number[] = [1, 1, 2, 3, 5];\n```\n\n这种方式存在一些约束：\n\n- 定义以及赋值的时候，所有项必须是同样的类型\n- 数组的部分参数重，也会约束新增的项必须跟之前的类型一致\n\n```\nlet fibonacci: number[] = [1, '1', 2, 3, 5]; // 错误\nlet fibonacci: number[] = [1, 1, 2, 3, 5];\nfibonacci.push('8'); // 错误\n```\n\n\n## 数组泛型\n\n```\nlet fibonacci: Array<number> = [1, 1, 2, 3, 5];\n```\n\n## 接口表示\n\n\n```\ninterface NumberArray {\n    [index: number]: number;\n}\nlet fibonacci: NumberArray = [1, 1, 2, 3, 5];\n```\n\n上面可以看到接口表示法，非常复杂，一般不推荐使用。\n\n\n## 使用说明\n\n开发中经常遇到一种情况，类数组对象，不是数组，所以不能使用上面两种类型来定义，一般就适合于接口表示法来定义。\n\n```\ninterface IArguments {\n    [index: number]: any;\n    length: number;\n    callee: Function;\n}\n```\n\n如果希望数组中运行出现任意类型，则可以用any类型\n\n```\nlet list: any[] = ['xcatliu', 25, { website: 'http://xcatliu.com' }];\n```\n\n\n\n\n",
+			"file": "technical/typescript/数组.md",
+			"file_size": 108,
+			"file_write_time": 132160399414775473,
+			"settings":
+			{
+				"buffer_size": 801,
+				"line_ending": "Unix",
+				"name": "数组.md"
+			}
+		},
+		{
+			"contents": "# 函数\n\n函数的本质就是通过传入输入来得到输出，故函数的类型定义主要是涉及到输入参数以及输出参数。\n函数可以根据其形态选择适合的方式进行类型定义\n\n- 函数声明\n- 函数表达式\n- 接口定义\n\n\n## 函数声明\n\n```\nfunction sum(x: number, y: number): number {\n    return x + y;\n}\n```\n\n## 函数表达式\n\n```\n// 只定义匿名函数的类型，未定义mySum的类型\nlet mySum = function (x: number, y: number): number {\n    return x + y;\n};\n\n// 同时定义匿名函数以及mySum的类型\nlet mySum: (x: number, y: number) => number = function (x: number, y: number): number {\n    return x + y;\n};\n```\n\n> 是否支持xxfunc = (x: number, y: number) => number  ?\n> 右侧的匿名函数，需要定义到什么程度？\n\n## 接口定义\n\n```\ninterface SearchFunc {\n    (source: string, subString: string): boolean;\n}\n\nlet mySearch: SearchFunc = function(source: string, subString: string) {\n    return source.search(subString) !== -1;\n}\n```\n\n## 使用说明\n\n参数相关：\n- 可选参数，与属性类型，添加?标识符，但是可选参数只能在必选参数后面\n- 默认值，与属性类型类似\n- 剩余参数，\n\n```\nfunction buildName(firstName: string, lastName?: string = 'Cat') {\n    return firstName + ' ' + lastName;\n}\n\nfunction push(array: any[], ...items: any[]) {\n    ...\n}\n```\n\n> 是否适用于与接口以及表达式的定义方法？\n\n函数重载\n\n```\nfunction reverse(x: number): number;\nfunction reverse(x: string): string;\nfunction reverse(x: number | string): number | string {\n    if (typeof x === 'number') {\n        return Number(x.toString().split('').reverse().join(''));\n    } else if (typeof x === 'string') {\n        return x.split('').reverse().join('');\n    }\n}\n```\n\n> 限定在哪里？参数数量一致？只是类型不一致？是否支持参数数量不一致？\n\n\n",
+			"file": "technical/typescript/函数.md",
+			"file_size": 10,
+			"file_write_time": 132160404675018415,
+			"settings":
+			{
+				"buffer_size": 1369,
+				"line_ending": "Unix",
+				"name": "函数.md"
+			}
+		},
+		{
+			"contents": "# lazyloading\n\n- webpack lazyloading 配置以及实现\n- dva lazyloading 支持\n- umi lazyloading 支持\n\n\n## webpack lazyloading\n\nwebpack 提供code splitting功能，可以将代码分离到不同的bundle中\n\n本质上是提供了两种方式配置代码分离：\n\n**通过entry配置多个入口分离**\n\n```\nconst path = require('path');\n\nmodule.exports = {\n  mode: 'development',\n  entry: {\n    index: './src/index.js',\n+   another: './src/another-module.js'\n  },\n  output: {\n    filename: '[name].bundle.js',\n    path: path.resolve(__dirname, 'dist')\n  }\n};\n```\n\n通过entry多个入口，打出的多个bundle之间会存在重复模块，可以通过SplitChunksPlugin插件，将多个entiry之间重复的模块，提取到独立的chunk中，以解决重复模块的问题。\n\n\n```\nconst path = require('path');\n\n  module.exports = {\n    mode: 'development',\n    entry: {\n      index: './src/index.js',\n      another: './src/another-module.js'\n    },\n    output: {\n      filename: '[name].bundle.js',\n      path: path.resolve(__dirname, 'dist')\n    },\n+   optimization: {\n+     splitChunks: {\n+       chunks: 'all'\n+     }\n+   }\n  };\n```\n\n\n**动态引入dynamic import**\n\n以import() 为入口，将依赖的资源一起作为一个chunk\n也可以通过require.ensure\n\nwebpack添加chunkFileName配置：\n\n```\nconst path = require('path');\n\n  module.exports = {\n    mode: 'development',\n    entry: {\n+     index: './src/index.js'\n    },\n    output: {\n      filename: '[name].bundle.js',\n+     chunkFilename: '[id].bundle.js',\n      path: path.resolve(__dirname, 'dist')\n    },\n  };\n\n```\n\n\n使用的时候通过import()引入\n```\n+ function getComponent() {\n\n+   return import(/* webpackChunkName: \"lodash\" */ 'lodash').then(({ default: \n+     var element = document.createElement('div');\n+\n+     element.innerHTML = _.join(['Hello', 'webpack'], ' ');\n+\n+     return element;\n+\n+   }).catch(error => 'An error occurred while loading the component');\n  }\n+ getComponent().then(component => {\n+   document.body.appendChild(component);\n+ })\n```\n \n上面这个例子，因为在程序初始化的时候就会调用import(), 固基本只实现代码分割的效果，而对于lazyloading，是期望在需要的时候再去加载，我们稍微修改下例子就可以看到效果：\n\n```\n+ import _ from 'lodash';\n+\n+ function component() {\n    var element = document.createElement('div');\n+   var button = document.createElement('button');\n+   var br = document.createElement('br');\n\n+   button.innerHTML = 'Click me and look at the console!';\n    element.innerHTML = _.join(['Hello', 'webpack'], ' ');\n+   element.appendChild(br);\n+   element.appendChild(button);\n+\n+   // Note that because a network request is involved, some indication\n+   // of loading would need to be shown in a production-level site/app.\n+   button.onclick = e => import(/* webpackChunkName: \"print\" */ './print').then(module => {\n+     var print = module.default;\n+\n+     print();\n+   });\n\n    return element;\n  }\n\n+ document.body.appendChild(component());\n```\n\n上面的例子，仅在按钮点击的时候，执行import(), 在这个时候会去加载分割的代码。\n\n所以，可以看看lazyloading，基本是依托import()来实现，import()不仅决定代码分割的分离点，也决定了lazyloading的加载时机。\n\n> 这里存在一个问题，由于加载的时机，在import代码执行处，故如果加载时机较长如何处理？如果统一添加效果？\n> \n\n\n## react lazyloading\n\n提供了 loadable component，屏蔽细节以及处理服务端渲染相关的问题\n\n## prefetch & preload\n\n\n\n\n\n\n",
+			"file": "technical/infrastructure/webpack/lazyloading.md",
+			"file_size": 3607,
+			"file_write_time": 132155930196256758,
+			"settings":
+			{
+				"buffer_size": 2874,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/laketea/private/improve-by-learning/technical/infrastructure/webpack/hot-module-replacement.md",
+			"settings":
+			{
+				"buffer_size": 1588,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "hot-module-replacement.md"
+			}
+		},
+		{
+			"contents": "index.md",
+			"settings":
+			{
+				"buffer_size": 8,
+				"line_ending": "Unix",
+				"name": "index.md"
+			}
+		},
+		{
+			"file": "/Users/laketea/private/improve-by-learning/technical/infrastructure/webpack/optimization.md",
+			"settings":
+			{
+				"buffer_size": 14,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "optimization.md"
+			}
+		},
+		{
+			"contents": "# 声明文件\n\n当使用第三方库时，我们需要引用它的声明文件，才能获得对应的代码补全、接口提示等功能。\n声明文件必须以.d.ts为后缀，ts会解析项目中所有的ds文件\n\n\n## 如何书写声明文件\n\n一般有以下几种场景，会需要书写声明文件\n\n### 通过script引入第三方库，注入全局变量\n\n如果第三方库，存在@types/xxx类型定义，则直接安装对应的类型定义，如果不存在则，可以将声明文件存放于当前项目中。\n一般全局变量的声明包含如下几种语法：\n\n```\n// 变量\ndeclare const jQuery: (selector: string) => any;\n\n// 函数\ndeclare function jQuery(selector: string): any;\n\n// 类\ndeclare class Animal {\n    name: string;\n    constructor(name: string);\n    sayHi(): string;\n}\n\n// 枚举\ndeclare enum Directions {\n    Up,\n    Down,\n    Left,\n    Right\n}\n\n// interface 以及type不需要declare\ninterface AjaxSettings {\n    method?: 'GET' | 'POST'\n    data?: any;\n}\n\n```\n\n命名空间，我们可以简单理解为 类型定义中的对象或者模块，避免命名冲突，支持嵌套\n\n```\ndeclare namespace jQuery {\n    function ajax(url: string, settings?: any): void;\n    namespace fn {\n        function extend(object: any): void;\n    }\n}\n\n```\n\n### 通过npm包引入第三方库\n\n通过npm包引入的第三方库如果不存在类型定义文件，我们也可以在项目中书写声明文件。\n为第三方npm包书写的声明文件只能按照如下两种方式存放声明文件：\n\n- node_modules/@types/foo/index.d.ts\n- types/foo/index.d.ts\n\n上面第二种方式需要配置paths以及baseurl\n\n```\n{\n    \"compilerOptions\": {\n        \"module\": \"commonjs\",\n        \"baseUrl\": \"./\",\n        \"paths\": {\n            \"*\": [\"types/*\"]\n        }\n    }\n}\n```\n\n下面说明下，如何为第三方包书写声明文件。\n> 注意下：为第三方包书写声明文件，与为当前包书写声明文件的语法一致，只是存放位置以及发布方式不一样。\n\n\n```\n// 与全局声明类型，只是需要export\nexport const name: string;\nexport function getName(): string;\n\n// 也可以先declare再导出\ndeclare const name: string;\nexport { name }\n\n// 同样支持namespace\nexport namespace foo {\n    const name: string;\n}\n\n// 默认导出，只有function class interface可以直接默认导出, 其他变量都要先定义再导出\n\n```\n\n\n## 如何发布声明文件\n\n\n当我们使用ts开发完成一个库时，需要发布声明模块，可以通过以下两种方案：\n\n- 将声明文件和源码一起发布\n- 单独书写声明文件并发布到@types中\n\n\n将声明文件与源码一起发布，可以：\n\n- 手动书写，类型定义查找规则：package.json中types/typings指定地址、根目录下index.d.ts文件、main入口文件对应的x.d.ts\n- 自动生成，配置declaration=ture参数，则将自动生成.d.ts文件，每个文件都会生成一份d.ts文件\n\n\n推荐将声明文件与源码一起发布。\n\n\n",
+			"file": "technical/typescript/声明文件.md",
+			"file_size": 2878,
+			"file_write_time": 132160482568449102,
+			"settings":
+			{
+				"buffer_size": 1793,
+				"line_ending": "Unix",
+				"name": "声明文件.md"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pro",
+				"Project: Save As"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 136.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/laketea/Private/improve-by-learning",
+		"/Users/laketea/Private/improve-by-learning/planning",
+		"/Users/laketea/Private/improve-by-learning/technical",
+		"/Users/laketea/Private/improve-by-learning/technical/book",
+		"/Users/laketea/Private/improve-by-learning/technical/book/js-regex-mini",
+		"/Users/laketea/Private/improve-by-learning/technical/book/refactor-v2",
+		"/Users/laketea/Private/improve-by-learning/technical/lint",
+		"/Users/laketea/Private/improve-by-learning/technical/solution",
+		"/Users/laketea/Private/improve-by-learning/technical/typescript"
+	],
+	"file_history":
+	[
+		"/Users/laketea/Private/improve-by-learning/technical/solution/移动端适配.md",
+		"/Users/laketea/Desktop/xigua_browser.sql",
+		"/Users/laketea/Desktop/test.js",
+		"/Applications/西瓜浏览器.app/Contents/Resources/app/dist/renderer.prod.js",
+		"/Users/laketea/private/improve-by-learning/technical/create-react-app/create-react-app.md",
+		"/Users/laketea/Private/improve-by-learning/improve.sublime-project"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"message",
+			"md"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "technical/framework/umijs.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 642,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								562,
+								562
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "technical/infrastructure/create-react-app.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 54,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								54,
+								54
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/laketea/private/improve-by-learning/technical/scratch/blockly.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4974,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								467,
+								467
+							]
+						],
+						"settings":
+						{
+							"auto_name": "blockly.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/laketea/private/improve-by-learning/technical/scratch/自定义block.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 609,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								389,
+								389
+							]
+						],
+						"settings":
+						{
+							"auto_name": "自定义block.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/laketea/private/improve-by-learning/technical/lint/eslint.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1583,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								340,
+								340
+							]
+						],
+						"settings":
+						{
+							"auto_name": "eslint.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "technical/lint/lint-tools.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2116,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1513,
+								1513
+							]
+						],
+						"settings":
+						{
+							"auto_name": "lint-staged.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1374.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "technical/book/refactor-v2/重构的原则.md",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 8,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 205,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								205,
+								205
+							]
+						],
+						"settings":
+						{
+							"auto_name": "select",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "technical/typescript/基本类型.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1961,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1533,
+								1533
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1636,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										145,
+										152
+									],
+									[
+										195,
+										202
+									],
+									[
+										268,
+										275
+									],
+									[
+										341,
+										348
+									],
+									[
+										467,
+										474
+									],
+									[
+										549,
+										556
+									],
+									[
+										647,
+										654
+									],
+									[
+										809,
+										816
+									],
+									[
+										972,
+										979
+									],
+									[
+										1137,
+										1144
+									],
+									[
+										1331,
+										1338
+									],
+									[
+										1384,
+										1391
+									],
+									[
+										1530,
+										1537
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								196,
+								196
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "technical/infrastructure/git message格式化以及changelog.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2466,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1672,
+								1672
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "technical/typescript/其他.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 548,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								314,
+								314
+							]
+						],
+						"settings":
+						{
+							"auto_name": "其他.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "technical/typescript/枚举.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 593,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								395,
+								395
+							]
+						],
+						"settings":
+						{
+							"auto_name": "枚举.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "technical/typescript/类.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								790,
+								790
+							]
+						],
+						"settings":
+						{
+							"auto_name": "类.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "technical/typescript/数组.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								319,
+								319
+							]
+						],
+						"settings":
+						{
+							"auto_name": "数组.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "technical/typescript/函数.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1369,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								793,
+								793
+							]
+						],
+						"settings":
+						{
+							"auto_name": "函数.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "technical/infrastructure/webpack/lazyloading.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2874,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2779,
+								2779
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "/Users/laketea/private/improve-by-learning/technical/infrastructure/webpack/hot-module-replacement.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1588,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1481,
+								1481
+							]
+						],
+						"settings":
+						{
+							"auto_name": "hot-module-replacement.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6,
+								8
+							]
+						],
+						"settings":
+						{
+							"auto_name": "index.md",
+							"default_dir": "/Users/laketea/Private/improve-by-learning/technical/geek/浏览器工作原理与实践",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "/Users/laketea/private/improve-by-learning/technical/infrastructure/webpack/optimization.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								14
+							]
+						],
+						"settings":
+						{
+							"auto_name": "optimization.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "technical/typescript/声明文件.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1793,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1515,
+								1515
+							]
+						],
+						"settings":
+						{
+							"auto_name": "声明文件.md",
+							"syntax": "Packages/MarkdownLight/MarkdownLight.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "improve.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"technical/lint/lint-tools.md"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Private/improve-by-learning/improve.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 260.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
